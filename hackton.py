@@ -13,3 +13,7 @@ def fastaread(fasta_name):
 		header = next(header)[1:].strip()
 		seq = "".join(s.strip() for s in next(faiter))
 		yield header, seq
+
+
+
+
