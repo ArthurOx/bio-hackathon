@@ -1,5 +1,6 @@
 import numpy as np
 from itertools import groupby
+from Bio import AlignIO
 
 def fastaread(fasta_name):
 	"""
@@ -14,6 +15,10 @@ def fastaread(fasta_name):
 		seq = "".join(s.strip() for s in next(faiter))
 		yield header, seq
 
+def create_model():
+	# aligment = fastaread('Data/world1.fasta')
+	alignment = AlignIO.parse("Data/world1.fasta", "fasta")
+	j =3
 
-
-
+if __name__ == '__main__':
+	create_model()
