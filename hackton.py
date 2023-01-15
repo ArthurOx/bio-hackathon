@@ -1,6 +1,10 @@
 import numpy as np
 from itertools import groupby
 from Bio import AlignIO
+from Bio import SeqIO
+from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
+from Bio.Align.Applications import MuscleCommandline
 
 def fastaread(fasta_name):
 	"""
@@ -16,8 +20,14 @@ def fastaread(fasta_name):
 		yield header, seq
 
 def create_model():
-	# aligment = fastaread('Data/world1.fasta')
-	alignment = AlignIO.parse("Data/world1.fasta", "fasta")
+	alignment = list(fastaread('Data/world1.fasta'))
+	sequences = []
+	for header, sequence in alignment:
+	longest_length = max(len(s) for s in alignment)
+	padded_sequences = [s.ljust(longest_length, '-') for s in sequences]
+	records = (SeqRecord(Seq(s)) for s in padded_sequences)
+	SeqIO.write(records, "example.fasta", "fasta")
+
 	j =3
 
 if __name__ == '__main__':
